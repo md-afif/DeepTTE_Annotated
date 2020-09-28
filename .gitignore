@@ -127,3 +127,14 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# Repo folders
+logs/*
+result/*
+saved_weights/*
+__pycache__
+
+.DS_Store
+.vscode
+
