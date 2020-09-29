@@ -96,7 +96,7 @@ def train(model, elogger, train_set, eval_set):
         ### EDIT: Save after every 10 epochs
         ###       Save weight of final epoch as "weights"
         save_flag = False
-        if (epoch + 1) == args.epoch:
+        if (epoch + 1) == args.epochs:
             weight_name = 'weights'
             save_flag = True
         elif (epoch + 1) % 10 == 0:
