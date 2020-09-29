@@ -11,5 +11,5 @@ python main.py --task train --batch_size 10 --result_file ./result/deeptte.res -
 
 ## Testing 
 ```
-python main.py --tast test --weight_file ./saved_weights/weight --batch_size 10 --result_file ./result/deeptte.res --pooling_method attention --kernel_size 3 --alpha 0.1 --log_file test_log
+python main.py --task test --weight_file ./saved_weights/weight --batch_size 10 --result_file ./result/deeptte.res --pooling_method attention --kernel_size 3 --alpha 0.1 --log_file test_log
 ```

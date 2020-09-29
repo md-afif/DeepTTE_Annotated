@@ -53,8 +53,6 @@ def train(model, elogger, train_set, eval_set):
     elogger.log(str(model))
     elogger.log(str(args._get_kwargs()))
 
-    model.train()
-
     if torch.cuda.is_available():
         model.cuda()
 
@@ -62,6 +60,8 @@ def train(model, elogger, train_set, eval_set):
 
     for epoch in range(args.epochs):
         print(f'Training on epoch {epoch}')
+        model.train()
+
         for input_file in train_set:   ### Train set contains file names of training data
             print(f'Train on file {input_file}')
 
@@ -93,9 +93,19 @@ def train(model, elogger, train_set, eval_set):
         evaluate(model, elogger, eval_set, save_result = False)
 
         # save the weight file after each epoch
-        weight_name = '{}_{}'.format(args.log_file, str(datetime.datetime.now()))
-        elogger.log(f'Save weight file {weight_name}')
-        torch.save(model.state_dict(), './saved_weights/' + weight_name)
+        ### EDIT: Save after every 10 epochs
+        ###       Save weight of final epoch as "weights"
+        save_flag = False
+        if (epoch + 1) == args.epoch:
+            weight_name = 'weights'
+            save_flag = True
+        elif (epoch + 1) % 10 == 0:
+            weight_name = '{}_{}'.format(args.log_file, str(datetime.datetime.now()))
+            save_flag = True
+        
+        if save_flag:
+            elogger.log(f'Epoch {epoch}, save weight file {weight_name}')
+            torch.save(model.state_dict(), './saved_weights/' + weight_name)
 
 
 def write_result(fs, pred_dict, attr):
